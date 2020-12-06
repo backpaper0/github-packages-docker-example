@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Docker
+      - name: docker build
         env:
           CONTAINER_IMAGE: docker.pkg.github.com/backpaper0/github-packages-docker-example/helloworld-docker:latest
         run: |
