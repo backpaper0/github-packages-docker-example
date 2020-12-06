@@ -1,0 +1,22 @@
+name: Docker
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ master ]
+
+jobs:
+  build:
+    name: Build Container Image
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Docker
+        env:
+          CONTAINER_IMAGE: docker.pkg.github.com/backpaper0/github-packages-docker-example:latest
+        run: |
+          docker --version
+          echo ${{ secrets.GITHUB_TOKEN }} | docker login https://docker.pkg.github.com -u backpaper0 --password-stdin
+          docker build --pull -t $CONTAINER_IMAGE .
+          docker push $CONTAINER_IMAGE
+
